@@ -47,3 +47,60 @@
     }
   }
 }
+
+/* ---- Reusable Component Styles ---- */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-ember text-white hover:bg-ember-dark;
+  }
+
+  .btn-dark {
+    @apply bg-charcoal text-cream hover:bg-charcoal-soft;
+  }
+
+  .btn-outline {
+    @apply border border-charcoal/25 text-charcoal hover:border-charcoal hover:bg-white;
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .skeleton {
+    @apply animate-pulse rounded-xl bg-charcoal/10;
+  }
+}
+
+/* ---- Animation Support ---- */
+
+/* Elements animated by GSAP start hidden */
+.gsap-hide {
+  opacity: 0;
+}
+
+/* Initial hero image animation */
+.hero-img-init {
+  transform: scale(1.06);
+}
+
+/* ---- Reduced Motion Safety ---- */
+@media (prefers-reduced-motion: reduce) {
+  .gsap-hide {
+    opacity: 1 !important;
+  }
+
+  .hero-img-init {
+    transform: none !important;
+  }
+
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    pointer-events: auto !important;
+  }
+}
