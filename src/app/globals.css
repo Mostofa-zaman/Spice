@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/* ---- Theme Configuration ---- */
+@theme {
+  --color-cream: #f8f3e9;
+  --color-charcoal: #292524;
+  --color-ember: #c2410c;
+  --color-ember-dark: #9a3412;
+  --color-charcoal-soft: #44403c;
+
+  --font-display: Georgia, serif;
+}
