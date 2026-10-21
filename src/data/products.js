@@ -99,6 +99,28 @@ const rawProducts = [
     ingredients: ["Lasagna sheets", "Beef ragù", "Béchamel", "Mozzarella"],
     tags: ["best-seller"], createdAt: "2026-04-20",
   },
+    // ---------- Rice & Biryani ----------
+  {
+    id: "biryani-001", slug: "kacchi-biryani", name: "Kacchi Biryani", category: "rice-biryani",
+    price: 580, oldPrice: 640, rating: 4.9, reviews: 312, vegetarian: false, spicy: true,
+    description: "Tender mutton slow-cooked with aged basmati, saffron and whole spices, served with borhani.",
+    ingredients: ["Mutton", "Basmati rice", "Saffron", "Yogurt", "Whole spices", "Fried onion"],
+    tags: ["popular", "best-seller"], createdAt: "2026-01-05",
+  },
+  {
+    id: "biryani-002", slug: "chicken-tehari", name: "Chicken Tehari", category: "rice-biryani",
+    price: 360, oldPrice: null, rating: 4.6, reviews: 141, vegetarian: false, spicy: true,
+    description: "Mustard-oil scented rice cooked with chicken and green chillies.",
+    ingredients: ["Chicken", "Kalijira rice", "Mustard oil", "Green chilli"],
+    tags: ["popular"], createdAt: "2026-02-14",
+  },
+  {
+    id: "biryani-003", slug: "vegetable-fried-rice", name: "Vegetable Fried Rice", category: "rice-biryani",
+    price: 290, oldPrice: null, rating: 4.3, reviews: 38, vegetarian: true, spicy: false,
+    description: "Wok-tossed rice with crunchy seasonal vegetables and soy.",
+    ingredients: ["Jasmine rice", "Carrot", "Beans", "Capsicum", "Soy sauce"],
+    tags: ["vegetarian"], createdAt: "2026-03-22",
+  },
 
 
 ]
