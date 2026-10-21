@@ -189,5 +189,26 @@ const rawProducts = [
     ingredients: ["Lemon", "Mint", "Sugar", "Soda"],
     tags: ["vegetarian"], createdAt: "2026-03-14",
   },
-
+ // ---------- Combo Meals ----------
+  {
+    id: "combo-001", slug: "burger-combo", name: "Classic Burger Combo", category: "combo-meals",
+    price: 650, oldPrice: 780, rating: 4.8, reviews: 145, vegetarian: false, spicy: false,
+    description: "A Classic Cheeseburger with regular fries and a soft drink.",
+    ingredients: ["Classic Cheeseburger", "Regular fries", "Soft drink"],
+    tags: ["popular", "best-seller"], createdAt: "2026-02-18",
+  },
+  {
+    id: "combo-002", slug: "family-feast-combo", name: "Family Feast Combo", category: "combo-meals",
+    price: 1890, oldPrice: 2250, rating: 4.9, reviews: 76, vegetarian: false, spicy: true,
+    description: "A large pizza, 6 pcs fried chicken, loaded fries and 4 drinks — serves 4.",
+    ingredients: ["Large pizza", "6 pcs fried chicken", "Loaded fries", "4 soft drinks"],
+    tags: ["popular"], createdAt: "2026-04-25",
+  },
+  {
+    id: "combo-003", slug: "biryani-combo", name: "Biryani Combo", category: "combo-meals",
+    price: 620, oldPrice: 700, rating: 4.7, reviews: 58, vegetarian: false, spicy: true,
+    description: "Kacchi Biryani with a chicken roast, salad and a chilled drink.",
+    ingredients: ["Kacchi Biryani", "Chicken roast", "Salad", "Drink"],
+    tags: [], createdAt: "2026-05-02",
+  },
 ]
