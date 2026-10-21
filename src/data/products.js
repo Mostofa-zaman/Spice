@@ -32,5 +32,28 @@ const rawProducts = [
     ingredients: ["Chickpea patty", "Avocado spread", "Tomato", "Rocket", "Whole-wheat bun"],
     tags: ["vegetarian"], createdAt: "2026-04-12",
   },
-  
+   // ---------- Pizza ----------
+  {
+    id: "pizza-001", slug: "margherita-pizza", name: "Margherita Pizza", category: "pizza",
+    price: 550, oldPrice: null, rating: 4.7, reviews: 152, vegetarian: true, spicy: false,
+    description: "San Marzano tomato sauce, fresh mozzarella and basil on a slow-fermented crust.",
+    ingredients: ["Pizza dough", "Tomato sauce", "Mozzarella", "Fresh basil", "Olive oil"],
+    tags: ["popular", "vegetarian"], createdAt: "2026-01-15",
+  },
+  {
+    id: "pizza-002", slug: "pepperoni-feast-pizza", name: "Pepperoni Feast Pizza", category: "pizza",
+    price: 720, oldPrice: 820, rating: 4.9, reviews: 203, vegetarian: false, spicy: true,
+    description: "Loaded with double pepperoni, mozzarella and a drizzle of hot honey.",
+    ingredients: ["Pizza dough", "Pepperoni", "Mozzarella", "Tomato sauce", "Hot honey"],
+    tags: ["popular", "best-seller"], createdAt: "2026-02-20",
+  },
+  {
+    id: "pizza-003", slug: "bbq-chicken-pizza", name: "BBQ Chicken Pizza", category: "pizza",
+    price: 690, oldPrice: null, rating: 4.6, reviews: 77, vegetarian: false, spicy: false,
+    description: "Smoky BBQ base topped with grilled chicken, red onion and sweet corn.",
+    ingredients: ["Pizza dough", "BBQ sauce", "Grilled chicken", "Red onion", "Sweet corn", "Mozzarella"],
+    tags: [], createdAt: "2026-03-18",
+  },
+
+
 ]
