@@ -121,6 +121,20 @@ const rawProducts = [
     ingredients: ["Jasmine rice", "Carrot", "Beans", "Capsicum", "Soy sauce"],
     tags: ["vegetarian"], createdAt: "2026-03-22",
   },
-
+  // ---------- Sandwiches ----------
+  {
+    id: "sandwich-001", slug: "club-sandwich", name: "Triple Decker Club Sandwich", category: "sandwiches",
+    price: 380, oldPrice: null, rating: 4.5, reviews: 59, vegetarian: false, spicy: false,
+    description: "Grilled chicken, egg, cheese and fresh veggies stacked between toasted bread.",
+    ingredients: ["Grilled chicken", "Egg", "Cheese", "Lettuce", "Tomato", "Toasted bread"],
+    tags: [], createdAt: "2026-02-08",
+  },
+  {
+    id: "sandwich-002", slug: "paneer-tikka-wrap", name: "Paneer Tikka Wrap", category: "sandwiches",
+    price: 320, oldPrice: 360, rating: 4.4, reviews: 44, vegetarian: true, spicy: true,
+    description: "Smoky paneer tikka, mint chutney and crunchy salad in a warm flatbread.",
+    ingredients: ["Paneer", "Mint chutney", "Onion", "Cabbage", "Flatbread"],
+    tags: ["vegetarian", "spicy"], createdAt: "2026-04-05",
+  },
 
 ]
