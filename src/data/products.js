@@ -212,3 +212,32 @@ const rawProducts = [
     tags: [], createdAt: "2026-05-02",
   },
 ]
+
+// Image path is derived from the slug: replace /public/images/products/<slug>.svg
+const productImages = {
+  // Burgers
+  "classic-cheeseburger": "/images/burgers/burger.png",
+  "smoky-bbq-burger": "/images/burgers/Smoky.png",
+  "spicy-crispy-chicken-burger": "/images/burgers/chicken.png",
+  "garden-veggie-burger": "/images/burgers/veggieBurger.png",
+
+  // Pizza
+  "margherita-pizza": "/images/pizza/margherita.jpg",
+  "pepperoni-feast-pizza": "/images/pizza/pepperoni.png",
+  "bbq-chicken-pizza": "/images/pizza/chicken.png",
+
+  // Chicken
+  "crispy-fried-chicken-bucket": "/images/chicken/crispy.png",
+  "grilled-peri-peri-chicken": "/images/chicken/periChicken.png",
+  "honey-glazed-wings": "/images/chicken/honeyWings.png",
+
+  // Pasta
+  "creamy-chicken-alfredo": "/images/pasta/creamyChicken.png",
+  "spicy-arrabbiata-penne": "/images/pasta/pasta.png",
+  "baked-beef-lasagna": "/images/pasta/lasagna.png",
+
+  // Rice & Biryani
+  "kacchi-biryani": "/images/biriyani/kacchiBiryani.png",
+  "chicken-tehari": "/images/biriyani/tehari.png",
+  "vegetable-fried-rice": "/images/biriyani/friedRice.png",
+}
