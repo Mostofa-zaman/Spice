@@ -77,5 +77,28 @@ const rawProducts = [
     tags: [], createdAt: "2026-04-01",
   },
 
+  // ---------- Pasta ----------
+  {
+    id: "pasta-001", slug: "creamy-chicken-alfredo", name: "Creamy Chicken Alfredo", category: "pasta",
+    price: 520, oldPrice: null, rating: 4.7, reviews: 98, vegetarian: false, spicy: false,
+    description: "Fettuccine in a silky parmesan cream sauce with seared chicken breast.",
+    ingredients: ["Fettuccine", "Chicken breast", "Cream", "Parmesan", "Garlic"],
+    tags: ["popular"], createdAt: "2026-01-30",
+  },
+  {
+    id: "pasta-002", slug: "spicy-arrabbiata-penne", name: "Spicy Arrabbiata Penne", category: "pasta",
+    price: 440, oldPrice: 490, rating: 4.5, reviews: 52, vegetarian: true, spicy: true,
+    description: "Penne tossed in a fiery tomato, garlic and chilli sauce.",
+    ingredients: ["Penne", "Tomato sauce", "Garlic", "Chilli flakes", "Parsley"],
+    tags: ["vegetarian", "spicy"], createdAt: "2026-03-10",
+  },
+  {
+    id: "pasta-003", slug: "baked-beef-lasagna", name: "Baked Beef Lasagna", category: "pasta",
+    price: 610, oldPrice: null, rating: 4.8, reviews: 73, vegetarian: false, spicy: false,
+    description: "Layers of slow-cooked beef ragù, béchamel and bubbling mozzarella.",
+    ingredients: ["Lasagna sheets", "Beef ragù", "Béchamel", "Mozzarella"],
+    tags: ["best-seller"], createdAt: "2026-04-20",
+  },
+
 
 ]
