@@ -174,4 +174,20 @@ const rawProducts = [
     ingredients: ["Cream cheese", "Biscuit base", "Berry compote"],
     tags: ["vegetarian"], createdAt: "2026-04-14",
   },
+   // ---------- Drinks ----------
+  {
+    id: "drink-001", slug: "oreo-milkshake", name: "Oreo Milkshake", category: "drinks",
+    price: 240, oldPrice: null, rating: 4.7, reviews: 133, vegetarian: true, spicy: false,
+    description: "Thick vanilla shake blended with crushed cookies and whipped cream.",
+    ingredients: ["Milk", "Vanilla ice cream", "Oreo cookies", "Whipped cream"],
+    tags: ["popular", "vegetarian"], createdAt: "2026-01-25",
+  },
+  {
+    id: "drink-002", slug: "fresh-mint-lemonade", name: "Fresh Mint Lemonade", category: "drinks",
+    price: 150, oldPrice: 180, rating: 4.5, reviews: 70, vegetarian: true, spicy: false,
+    description: "Hand-squeezed lemons, fresh mint and a touch of sugar, served over ice.",
+    ingredients: ["Lemon", "Mint", "Sugar", "Soda"],
+    tags: ["vegetarian"], createdAt: "2026-03-14",
+  },
+
 ]
