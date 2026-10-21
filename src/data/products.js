@@ -264,4 +264,8 @@ const productImages = {
   "biryani-combo": "/images/combo/biriyanicombo.png",
 };
 
+export const products = rawProducts.map((p) => ({
+  ...p,
+  image: productImages[p.slug],
+}));
 
