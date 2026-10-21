@@ -136,5 +136,26 @@ const rawProducts = [
     ingredients: ["Paneer", "Mint chutney", "Onion", "Cabbage", "Flatbread"],
     tags: ["vegetarian", "spicy"], createdAt: "2026-04-05",
   },
-
+ // ---------- Appetizers ----------
+  {
+    id: "appetizer-001", slug: "loaded-cheese-fries", name: "Loaded Cheese Fries", category: "appetizers",
+    price: 260, oldPrice: null, rating: 4.6, reviews: 118, vegetarian: true, spicy: false,
+    description: "Crispy fries smothered in cheese sauce, spring onion and crunchy bits.",
+    ingredients: ["Potato fries", "Cheese sauce", "Spring onion"],
+    tags: ["popular", "vegetarian"], createdAt: "2026-01-18",
+  },
+  {
+    id: "appetizer-002", slug: "crispy-onion-rings", name: "Crispy Onion Rings", category: "appetizers",
+    price: 190, oldPrice: null, rating: 4.3, reviews: 47, vegetarian: true, spicy: false,
+    description: "Thick-cut onions in a light, crunchy batter with garlic dip.",
+    ingredients: ["Onion", "Batter", "Garlic dip"],
+    tags: ["vegetarian"], createdAt: "2026-03-01",
+  },
+  {
+    id: "appetizer-003", slug: "chicken-nuggets", name: "Chicken Nuggets (10 pcs)", category: "appetizers",
+    price: 310, oldPrice: 350, rating: 4.4, reviews: 82, vegetarian: false, spicy: false,
+    description: "Juicy breast meat nuggets with a golden crumb, served with two dips.",
+    ingredients: ["Chicken breast", "Breadcrumb", "Two dips"],
+    tags: [], createdAt: "2026-03-28",
+  },
 ]
