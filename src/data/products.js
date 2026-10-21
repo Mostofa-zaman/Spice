@@ -54,6 +54,28 @@ const rawProducts = [
     ingredients: ["Pizza dough", "BBQ sauce", "Grilled chicken", "Red onion", "Sweet corn", "Mozzarella"],
     tags: [], createdAt: "2026-03-18",
   },
+  // ---------- Chicken ----------
+  {
+    id: "chicken-001", slug: "crispy-fried-chicken-bucket", name: "Crispy Fried Chicken (6 pcs)", category: "chicken",
+    price: 650, oldPrice: 720, rating: 4.8, reviews: 189, vegetarian: false, spicy: true,
+    description: "Six pieces of golden, extra-crunchy chicken with our secret 11-spice coating.",
+    ingredients: ["Chicken pieces", "Buttermilk", "11-spice flour coating"],
+    tags: ["popular", "best-seller"], createdAt: "2026-01-22",
+  },
+  {
+    id: "chicken-002", slug: "grilled-peri-peri-chicken", name: "Grilled Peri-Peri Chicken", category: "chicken",
+    price: 580, oldPrice: null, rating: 4.7, reviews: 110, vegetarian: false, spicy: true,
+    description: "Half a chicken marinated overnight in peri-peri and char-grilled to order.",
+    ingredients: ["Half chicken", "Peri-peri marinade", "Garlic", "Lemon"],
+    tags: ["spicy"], createdAt: "2026-02-28",
+  },
+  {
+    id: "chicken-003", slug: "honey-glazed-wings", name: "Honey Glazed Wings (8 pcs)", category: "chicken",
+    price: 460, oldPrice: 520, rating: 4.5, reviews: 64, vegetarian: false, spicy: false,
+    description: "Oven-baked wings tossed in a sticky honey and soy glaze.",
+    ingredients: ["Chicken wings", "Honey", "Soy sauce", "Sesame seeds"],
+    tags: [], createdAt: "2026-04-01",
+  },
 
 
 ]
