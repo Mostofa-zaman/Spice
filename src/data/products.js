@@ -240,4 +240,28 @@ const productImages = {
   "kacchi-biryani": "/images/biriyani/kacchiBiryani.png",
   "chicken-tehari": "/images/biriyani/tehari.png",
   "vegetable-fried-rice": "/images/biriyani/friedRice.png",
-}
+
+  // Sandwiches
+  "club-sandwich": "/images/sandwich/clubSandwich.png",
+  "paneer-tikka-wrap": "/images/sandwich/tikkaWrap.png",
+
+  // Appetizers
+  "loaded-cheese-fries": "/images/cheeseFries/cheeseFries.png",
+  "crispy-onion-rings": "/images/cheeseFries/onionRings.png",
+  "chicken-nuggets": "/images/cheeseFries/nhickenNuggets.png",
+
+  // Desserts
+  "molten-chocolate-lava-cake": "/images/desert/lavaCake.png",
+  "new-york-cheesecake": "/images/desert/yorkCheesecake.png",
+
+  // Drinks
+  "oreo-milkshake": "/images/milkshakes/oreoMilkshake.png",
+  "fresh-mint-lemonade": "/images/milkshakes/lemonade.png",
+
+  // Combo Meals
+  "burger-combo": "/images/combo/burgercombo.png",
+  "family-feast-combo": "/images/combo/family.png",
+  "biryani-combo": "/images/combo/biriyanicombo.png",
+};
+
+
