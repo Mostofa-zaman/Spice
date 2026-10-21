@@ -158,4 +158,20 @@ const rawProducts = [
     ingredients: ["Chicken breast", "Breadcrumb", "Two dips"],
     tags: [], createdAt: "2026-03-28",
   },
+  
+  // ---------- Desserts ----------
+  {
+    id: "dessert-001", slug: "molten-chocolate-lava-cake", name: "Molten Chocolate Lava Cake", category: "desserts",
+    price: 280, oldPrice: 320, rating: 4.9, reviews: 167, vegetarian: true, spicy: false,
+    description: "Warm dark-chocolate cake with a gooey centre and vanilla ice cream.",
+    ingredients: ["Dark chocolate", "Butter", "Eggs", "Vanilla ice cream"],
+    tags: ["popular", "best-seller", "vegetarian"], createdAt: "2026-02-11",
+  },
+  {
+    id: "dessert-002", slug: "new-york-cheesecake", name: "New York Cheesecake", category: "desserts",
+    price: 310, oldPrice: null, rating: 4.7, reviews: 91, vegetarian: true, spicy: false,
+    description: "Dense, creamy cheesecake on a buttery biscuit base with berry compote.",
+    ingredients: ["Cream cheese", "Biscuit base", "Berry compote"],
+    tags: ["vegetarian"], createdAt: "2026-04-14",
+  },
 ]
