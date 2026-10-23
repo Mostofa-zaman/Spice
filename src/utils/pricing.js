@@ -1,6 +1,8 @@
+import { getProductOptions } from "@/services/productService";
+
 // Pricing helpers for product customisation.
 
-// Selection shape: { size?: "Large", spice?: "Hot", extras?: ["Extra cheese"] }
+// Selection shape: { size?: "Large", spice?: "Hot", extras?: "Extra cheese" }
 export function getDefaultSelection(config) {
   const sel = { extras: [] };
   if (config.sizes) sel.size = (config.sizes.find((s) => s.default) || config.sizes[0]).label;
@@ -8,7 +10,7 @@ export function getDefaultSelection(config) {
   return sel;
 }
 
-// How much the chosen options add to (or remove from) the base price.
+// How much chosen options (or remove from) the base price.
 export function getOptionsDelta(config, selection) {
   let delta = 0;
   if (config.sizes && selection.size) delta += config.sizes.find((s) => s.label === selection.size)?.price || 0;
@@ -18,7 +20,7 @@ export function getOptionsDelta(config, selection) {
   return delta;
 }
 
-// Cleaned, stable options object saved in the cart (extras sorted so identical picks merge).
+// Cleaned, stable options object 
 export function buildCartOptions(selection) {
   const out = {};
   if (selection.size) out.size = selection.size;
@@ -34,4 +36,15 @@ export function formatOptions(options = {}) {
   if (options.spice) parts.push(`${options.spice} spice`);
   if (options.extras?.length) parts.push(options.extras.join(", "));
   return parts.join(" · ");
+}
+
+// The cart line 
+export function getDefaultCartLine(product) {
+  const config = getProductOptions(product);
+  const selection = getDefaultSelection(config);
+  return {
+    quantity: 1,
+    options: buildCartOptions(selection),
+    unitPrice: product.price + getOptionsDelta(config, selection),
+  };
 }
