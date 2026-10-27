@@ -25,6 +25,15 @@ const AccordionTrigger = forwardRef(({ className, children, ...props }, ref) => 
 ));
 AccordionTrigger.displayName = "AccordionTrigger";
 
+const AccordionContent = forwardRef(({ className, children, ...props }, ref) => (
+  <AccordionPrimitive.Content
+    ref={ref}
+    className="overflow-hidden text-sm text-charcoal/75 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    {...props}
+  >
+    <div className={cn("pb-4 leading-relaxed", className)}>{children}</div>
+  </AccordionPrimitive.Content>
+));
+AccordionContent.displayName = "AccordionContent";
 
-
-export { Accordion, AccordionItem, AccordionTrigger,  };
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
