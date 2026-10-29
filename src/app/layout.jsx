@@ -23,11 +23,13 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-         <Providers>
+        <body>
+           <Providers>
         
           <main id="main" tabIndex={-1} className="flex-1 outline-none">{children}</main>
          
         </Providers>
+        </body>
     </html>
   );
 }
