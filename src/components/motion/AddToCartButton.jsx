@@ -4,8 +4,6 @@ import { AnimatePresence, m } from "framer-motion";
 import { Check, ShoppingBag } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// "Add" button with instant visual feedback: the label swaps to "Added" with a check mark for ~1.4s.
-// The cart logic itself (onAdd) is untouched.
 export default function AddToCartButton({ onAdd, idleLabel = "Add", doneLabel = "Added", icon: Icon = ShoppingBag, className, iconClass = "h-4 w-4", ...props }) {
   const [done, setDone] = useState(false);
   const timer = useRef(null);
