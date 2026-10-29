@@ -1,4 +1,4 @@
-import Rating from "@/components/common/Rating";
+import ProductCard from "@/components/common/ProductCard";
 
 
 
