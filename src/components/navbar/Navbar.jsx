@@ -1,13 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { m } from "framer-motion";
-import { ChevronDown, Menu } from "lucide-react";
+import { AnimatePresence, m } from "framer-motion";
+import {
+  ChevronDown,
+  Heart,
+  Menu,
+  Search,
+  ShoppingBag,
+} from "lucide-react";
 
 import Logo from "@/components/common/Logo";
+import SearchDialog from "./SearchDialog";
+
 import { getRealCategories } from "@/services/productService";
+import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 import {
   Sheet,
@@ -26,6 +36,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 const links = [
   { href: "/", label: "Home" },
   { href: "/menu", label: "Menu" },
@@ -34,7 +50,50 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-// Mobile menu animation
+// Count Badge Animation
+function CountBadge({ count }) {
+  return (
+    <AnimatePresence initial={false}>
+      {count > 0 && (
+        <m.span
+          key={count}
+          initial={{ scale: 1.6, opacity: 0.4 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 500,
+            damping: 18,
+          }}
+          className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-ember px-1 text-[11px] font-bold text-white"
+        >
+          {count > 99 ? "99+" : count}
+        </m.span>
+      )}
+    </AnimatePresence>
+  );
+}
+
+// Reusable Icon Link
+function IconLink({ href, label, count, children }) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Link
+          href={href}
+          aria-label={count ? `${label} (${count})` : label}
+          className="relative grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-mist sm:h-10 sm:w-10"
+        >
+          {children}
+          <CountBadge count={count} />
+        </Link>
+      </TooltipTrigger>
+
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
+  );
+}
+
+// Mobile Menu Animation
 const listVariants = {
   hidden: {},
   show: {
@@ -60,7 +119,13 @@ const itemVariants = {
 export default function Navbar() {
   const pathname = usePathname();
 
+  const { count: cartCount } = useCart();
+  const { count: wishCount } = useWishlist();
+
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  const searchBtnRef = useRef(null);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -114,9 +179,7 @@ export default function Navbar() {
                       <SheetClose asChild>
                         <Link
                           href={link.href}
-                          aria-current={
-                            isActive(link.href) ? "page" : undefined
-                          }
+                          aria-current={isActive(link.href) ? "page" : undefined}
                           className={`block rounded-xl px-3 py-3 text-base font-medium ${
                             isActive(link.href)
                               ? "bg-white text-ember"
@@ -142,18 +205,13 @@ export default function Navbar() {
                   className="grid grid-cols-2 gap-1"
                 >
                   {categories.map((category) => (
-                    <m.li
-                      key={category.id}
-                      variants={itemVariants}
-                    >
+                    <m.li key={category.id} variants={itemVariants}>
                       <SheetClose asChild>
                         <Link
                           href={`/categories/${category.slug}`}
                           className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm hover:bg-mist"
                         >
-                          <span aria-hidden="true">
-                            {category.emoji}
-                          </span>
+                          <span aria-hidden="true">{category.emoji}</span>
                           {category.name}
                         </Link>
                       </SheetClose>
@@ -165,7 +223,6 @@ export default function Navbar() {
           </Sheet>
 
           <Logo />
-
         </div>
 
         {/* Desktop Navigation */}
@@ -204,14 +261,9 @@ export default function Navbar() {
               className="grid w-80 grid-cols-2 gap-1"
             >
               {categories.map((category) => (
-                <DropdownMenuItem
-                  key={category.id}
-                  asChild
-                >
+                <DropdownMenuItem key={category.id} asChild>
                   <Link href={`/categories/${category.slug}`}>
-                    <span aria-hidden="true">
-                      {category.emoji}
-                    </span>
+                    <span aria-hidden="true">{category.emoji}</span>
                     {category.name}
                   </Link>
                 </DropdownMenuItem>
@@ -230,7 +282,53 @@ export default function Navbar() {
           ))}
         </nav>
 
+        {/* Search, Wishlist and Cart */}
+        <div className="flex items-center gap-0.5 sm:gap-2">
+
+          {/* Search */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                type="button"
+                ref={searchBtnRef}
+                onClick={() => setSearchOpen(true)}
+                aria-label="Search"
+                className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-mist sm:h-10 sm:w-10"
+              >
+                <Search className="h-5 w-5" />
+              </button>
+            </TooltipTrigger>
+
+            <TooltipContent>Search</TooltipContent>
+          </Tooltip>
+
+          {/* Wishlist */}
+          <IconLink
+            href="/wishlist"
+            label="Wishlist"
+            count={wishCount}
+          >
+            <Heart className="h-5 w-5" />
+          </IconLink>
+
+          {/* Cart */}
+          <IconLink
+            href="/cart"
+            label="Cart"
+            count={cartCount}
+          >
+            <ShoppingBag className="h-5 w-5" />
+          </IconLink>
+
+        </div>
       </div>
+
+      {/* Search Dialog */}
+      <SearchDialog
+        open={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        returnFocusRef={searchBtnRef}
+      />
     </header>
   );
 }
