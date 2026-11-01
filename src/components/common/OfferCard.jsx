@@ -27,7 +27,7 @@ export default function OfferCard({ offer }) {
       toast(`Your code: ${offer.code}`, { description: "Copy it manually and enter it in your cart." });
     }
   };
-
+  
   return (
     <article className={`flex flex-col rounded-2xl bg-white p-5 shadow-card sm:p-6 ${expired ? "opacity-60" : ""}`}>
       <span className="self-start rounded-full bg-ember px-3 py-1 text-xs font-bold tracking-wide text-white">{offer.badge}</span>
