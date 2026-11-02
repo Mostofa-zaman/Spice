@@ -97,9 +97,32 @@ function IconLink({ href, label, count, children }) {
   );
 }
 
+function CountBadge({ count }) {
+  return (
+    count > 0 && (
+      <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-ember px-1 text-[11px] font-bold text-white">
+        {count > 99 ? "99+" : count}
+      </span>
+    )
+  );
+}
+
+function IconLink({ href, label, count, children }) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Link href={href} aria-label={count ? `${label} (${count})` : label} className="relative grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-mist sm:h-10 sm:w-10">
+          {children}
+          <CountBadge count={count} />
+        </Link>
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
+  );
+}
+
 export default function Navbar() {
   const pathname = usePathname();
-
   const { count: cartCount } = useCart();
   const { count: wishCount } = useWishlist();
 
