@@ -1,16 +1,16 @@
-
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { AnimatePresence, m } from "framer-motion";
-import { ChevronDown, Heart, Menu, Search, ShoppingBag } from "lucide-react";
+import { usePathname,  } from "next/navigation";
+import { m } from "framer-motion";
+
+import { ChevronDown, Heart, Menu, Search, ShoppingBag} from "lucide-react";
 import Logo from "@/components/common/Logo";
 import SearchDialog from "./SearchDialog";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { getRealCategories } from "@/services/productService";
@@ -23,40 +23,29 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-const listVariants = { hidden: {}, show: { transition: { staggerChildren: 0.045, delayChildren: 0.08 } } };
-const itemVariants = { hidden: { opacity: 0, x: -14 }, show: { opacity: 1, x: 0, transition: { duration: 0.22, ease: "easeOut" } } };
+const listVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.045,
+      delayChildren: 0.08,
+    },
+  },
+};
 
-function CountBadge({ count }) {
-  return (
-    <AnimatePresence initial={false}>
-      {count > 0 && (
-        <m.span
-          key={count}
-          initial={{ scale: 1.6, opacity: 0.4 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 500, damping: 18 }}
-          className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-ember px-1 text-[11px] font-bold text-white"
-        >
-          {count > 99 ? "99+" : count}
-        </m.span>
-      )}
-    </AnimatePresence>
-  );
-}
+const itemVariants = {
+  hidden: { opacity: 0, x: -14 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.22,
+      ease: "easeOut",
+    },
+  },
+};
 
-function IconLink({ href, label, count, children }) {
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Link href={href} aria-label={count ? `${label} (${count})` : label} className="relative grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-mist sm:h-10 sm:w-10">
-          {children}
-          <CountBadge count={count} />
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent>{label}</TooltipContent>
-    </Tooltip>
-  );
-}
+
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -88,7 +77,6 @@ export default function Navbar() {
                 <SheetDescription className="sr-only">Site navigation</SheetDescription>
               </SheetHeader>
               <nav aria-label="Mobile" className="mt-5">
-                <m.ul variants={listVariants} initial="hidden" animate={mobileOpen ? "show" : "hidden"} className="space-y-1">
                 <m.ul
                   variants={listVariants}
                   initial="hidden"
@@ -118,7 +106,6 @@ export default function Navbar() {
                       </SheetClose>
                     </m.li>
                   ))}
-                </m.ul>
                 </m.ul>
               </nav>
             </SheetContent>
