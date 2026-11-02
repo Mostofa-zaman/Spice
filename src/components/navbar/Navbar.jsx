@@ -89,13 +89,21 @@ export default function Navbar() {
               </SheetHeader>
               <nav aria-label="Mobile" className="mt-5">
                 <m.ul variants={listVariants} initial="hidden" animate={mobileOpen ? "show" : "hidden"} className="space-y-1">
+                <m.ul
+                  variants={listVariants}
+                  initial="hidden"
+                  animate={mobileOpen ? "show" : "hidden"}
+                  className="space-y-1"
+                >
                   {links.map((l) => (
+                    <m.li key={l.href} variants={itemVariants}>
                     <m.li key={l.href} variants={itemVariants}>
                       <SheetClose asChild>
                         <Link href={l.href} aria-current={isActive(l.href) ? "page" : undefined} className={`block rounded-xl px-3 py-3 text-base font-medium ${isActive(l.href) ? "bg-white text-ember" : "hover:bg-mist"}`}>
                           {l.label}
                         </Link>
                       </SheetClose>
+                    </m.li>
                     </m.li>
                   ))}
                 </m.ul>
@@ -110,6 +118,7 @@ export default function Navbar() {
                       </SheetClose>
                     </m.li>
                   ))}
+                </m.ul>
                 </m.ul>
               </nav>
             </SheetContent>
