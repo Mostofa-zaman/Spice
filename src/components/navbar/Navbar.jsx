@@ -4,16 +4,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { m } from "framer-motion";
-
-import {
-  ChevronDown,
-  Heart,
-  Menu,
-  Search,
-  ShoppingBag,
-} from "lucide-react";
-
+import { AnimatePresence, m } from "framer-motion";
+import { ChevronDown, Heart, Menu, Search, ShoppingBag } from "lucide-react";
 import Logo from "@/components/common/Logo";
 import SearchDialog from "./SearchDialog";
 
@@ -99,11 +91,19 @@ function IconLink({ href, label, count, children }) {
 
 function CountBadge({ count }) {
   return (
-    count > 0 && (
-      <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-ember px-1 text-[11px] font-bold text-white">
-        {count > 99 ? "99+" : count}
-      </span>
-    )
+    <AnimatePresence initial={false}>
+      {count > 0 && (
+        <m.span
+          key={count}
+          initial={{ scale: 1.6, opacity: 0.4 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 500, damping: 18 }}
+          className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-ember px-1 text-[11px] font-bold text-white"
+        >
+          {count > 99 ? "99+" : count}
+        </m.span>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -125,7 +125,6 @@ export default function Navbar() {
   const pathname = usePathname();
   const { count: cartCount } = useCart();
   const { count: wishCount } = useWishlist();
-
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -312,12 +311,7 @@ export default function Navbar() {
           </IconLink>
         </div>
       </div>
-
-      <SearchDialog
-        open={searchOpen}
-        onClose={() => setSearchOpen(false)}
-        returnFocusRef={searchBtnRef}
-      />
+      <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} returnFocusRef={searchBtnRef} />
     </header>
   );
 }
