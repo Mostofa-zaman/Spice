@@ -1,37 +1,15 @@
 
 "use client";
-
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, m } from "framer-motion";
-import { ChevronDown, Heart, Menu, Search, ShoppingBag } from "lucide-react";
+import { ChevronDown, Heart, LogOut, Menu, Package, Search, ShoppingBag, User, UserCircle } from "lucide-react";
 import Logo from "@/components/common/Logo";
 import SearchDialog from "./SearchDialog";
-
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { getRealCategories } from "@/services/productService";
@@ -93,13 +71,7 @@ function CountBadge({ count }) {
   return (
     <AnimatePresence initial={false}>
       {count > 0 && (
-        <m.span
-          key={count}
-          initial={{ scale: 1.6, opacity: 0.4 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 500, damping: 18 }}
-          className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-ember px-1 text-[11px] font-bold text-white"
-        >
+        <m.span key={count} initial={{ scale: 1.6, opacity: 0.4 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 500, damping: 18 }} className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-ember px-1 text-[11px] font-bold text-white">
           {count > 99 ? "99+" : count}
         </m.span>
       )}
@@ -123,8 +95,10 @@ function IconLink({ href, label, count, children }) {
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { count: cartCount } = useCart();
   const { count: wishCount } = useWishlist();
+  const { isLoggedIn, user, logout } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -227,33 +201,18 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Navigation */}
-        <m.nav
-          aria-label="Main"
-          variants={listVariants}
-          initial="hidden"
-          animate="show"
-          className="hidden items-center gap-1 lg:flex"
-        >
+        <m.nav aria-label="Main" variants={listVariants} initial="hidden" animate="show" className="hidden items-center gap-1 lg:flex">
           {links.slice(0, 2).map((l) => (
             <m.div key={l.href} variants={itemVariants}>
-              <Link
-                href={l.href}
-                aria-current={isActive(l.href) ? "page" : undefined}
-                className={linkClass(l.href)}
-              >
-                {l.label}
-              </Link>
+              <Link href={l.href} aria-current={isActive(l.href) ? "page" : undefined} className={linkClass(l.href)}>{l.label}</Link>
             </m.div>
           ))}
 
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
-              <button
-                type="button"
-                className={`group inline-flex items-center gap-1 ${linkClass("/categories")}`}
-              >
+              <button type="button" className={`group inline-flex items-center gap-1 ${linkClass("/categories")}`}>
                 Categories
-                <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
+                <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180" aria-hidden="true" />
               </button>
             </DropdownMenuTrigger>
 
@@ -264,8 +223,7 @@ export default function Navbar() {
               {categories.map((c) => (
                 <DropdownMenuItem key={c.id} asChild>
                   <Link href={`/categories/${c.slug}`}>
-                    <span aria-hidden="true">{c.emoji}</span>
-                    {c.name}
+                    <span aria-hidden="true">{c.emoji}</span> {c.name}
                   </Link>
                 </DropdownMenuItem>
               ))}
@@ -274,18 +232,10 @@ export default function Navbar() {
 
           {links.slice(2).map((l) => (
             <m.div key={l.href} variants={itemVariants}>
-              <Link
-                href={l.href}
-                aria-current={isActive(l.href) ? "page" : undefined}
-                className={linkClass(l.href)}
-              >
-                {l.label}
-              </Link>
+              <Link href={l.href} aria-current={isActive(l.href) ? "page" : undefined} className={linkClass(l.href)}>{l.label}</Link>
             </m.div>
           ))}
         </m.nav>
-
-        {/* Actions */}
         <div className="flex items-center gap-0.5 sm:gap-2">
           <Tooltip>
             <TooltipTrigger asChild>
@@ -301,11 +251,9 @@ export default function Navbar() {
             </TooltipTrigger>
             <TooltipContent>Search</TooltipContent>
           </Tooltip>
-
           <IconLink href="/wishlist" label="Wishlist" count={wishCount}>
             <Heart className="h-5 w-5" />
           </IconLink>
-
           <IconLink href="/cart" label="Cart" count={cartCount}>
             <ShoppingBag className="h-5 w-5" />
           </IconLink>
