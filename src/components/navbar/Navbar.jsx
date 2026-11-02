@@ -1,4 +1,3 @@
-
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -8,8 +7,9 @@ import { ChevronDown, Heart, LogOut, Menu, Package, Search, ShoppingBag, User, U
 import Logo from "@/components/common/Logo";
 import SearchDialog from "./SearchDialog";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { getRealCategories } from "@/services/productService";
@@ -22,56 +22,18 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-const listVariants = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.045,
-      delayChildren: 0.08,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, x: -14 },
-  show: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 0.22,
-      ease: "easeOut",
-    },
-  },
-};
-
-function IconLink({ href, label, count, children }) {
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Link
-          href={href}
-          aria-label={`${label}${count ? `, ${count} items` : ""}`}
-          className="relative grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-mist sm:h-10 sm:w-10"
-        >
-          {children}
-
-          {count > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 grid h-4 min-w-4 place-items-center rounded-full bg-ember px-1 text-[10px] font-semibold text-white">
-              {count}
-            </span>
-          )}
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent>{label}</TooltipContent>
-    </Tooltip>
-  );
-}
-
+// Count badge that gives a quick "pop" each time the number changes
 function CountBadge({ count }) {
   return (
     <AnimatePresence initial={false}>
       {count > 0 && (
-        <m.span key={count} initial={{ scale: 1.6, opacity: 0.4 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 500, damping: 18 }} className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-ember px-1 text-[11px] font-bold text-white">
+        <m.span
+          key={count}
+          initial={{ scale: 1.6, opacity: 0.4 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 500, damping: 18 }}
+          className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-ember px-1 text-[11px] font-bold text-white"
+        >
           {count > 99 ? "99+" : count}
         </m.span>
       )}
@@ -93,101 +55,63 @@ function IconLink({ href, label, count, children }) {
   );
 }
 
+// Staggered entrance for the links inside the mobile menu (Framer Motion)
+const listVariants = { hidden: {}, show: { transition: { staggerChildren: 0.045, delayChildren: 0.08 } } };
+const itemVariants = { hidden: { opacity: 0, x: -14 }, show: { opacity: 1, x: 0, transition: { duration: 0.22, ease: "easeOut" } } };
+
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { count: cartCount } = useCart();
   const { count: wishCount } = useWishlist();
   const { isLoggedIn, user, logout } = useAuth();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-
   const searchBtnRef = useRef(null);
 
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+  useEffect(() => { setMobileOpen(false); }, [pathname]);
 
   const categories = getRealCategories();
-
-  const isActive = (href) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
-
+  const isActive = (href) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
   const linkClass = (href) =>
-    `rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-mist ${
-      isActive(href) ? "text-ember" : "text-charcoal"
-    }`;
+    `rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-mist ${isActive(href) ? "text-ember" : "text-charcoal"}`;
 
   return (
     <header className="sticky top-0 z-50 border-b border-charcoal/10 bg-cream/95 backdrop-blur">
       <div className="container-page flex h-16 items-center justify-between gap-4">
-
-        {/* Logo and Mobile Menu */}
         <div className="flex items-center gap-2">
+          {/* Mobile navigation: shadcn Sheet */}
           <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
-              <button
-                type="button"
-                className="grid h-10 w-10 place-items-center rounded-full hover:bg-mist lg:hidden"
-                aria-label="Open menu"
-              >
+              <button type="button" className="grid h-10 w-10 place-items-center rounded-full hover:bg-mist lg:hidden" aria-label="Open menu">
                 <Menu className="h-5 w-5" />
               </button>
             </SheetTrigger>
-
             <SheetContent side="left">
               <SheetHeader>
                 <SheetTitle>Menu</SheetTitle>
-                <SheetDescription className="sr-only">
-                  Site navigation
-                </SheetDescription>
+                <SheetDescription className="sr-only">Site navigation</SheetDescription>
               </SheetHeader>
-
               <nav aria-label="Mobile" className="mt-5">
-                <m.ul
-                  variants={listVariants}
-                  initial="hidden"
-                  animate={mobileOpen ? "show" : "hidden"}
-                  className="space-y-1"
-                >
+                <m.ul variants={listVariants} initial="hidden" animate="show" className="space-y-1">
                   {links.map((l) => (
                     <m.li key={l.href} variants={itemVariants}>
                       <SheetClose asChild>
-                        <Link
-                          href={l.href}
-                          aria-current={isActive(l.href) ? "page" : undefined}
-                          className={`block rounded-xl px-3 py-3 text-base font-medium ${
-                            isActive(l.href)
-                              ? "bg-white text-ember"
-                              : "hover:bg-mist"
-                          }`}
-                        >
+                        <Link href={l.href} aria-current={isActive(l.href) ? "page" : undefined} className={`block rounded-xl px-3 py-3 text-base font-medium ${isActive(l.href) ? "bg-white text-ember" : "hover:bg-mist"}`}>
                           {l.label}
                         </Link>
                       </SheetClose>
                     </m.li>
                   ))}
                 </m.ul>
-
-                <p className="px-3 pb-2 pt-6 text-sm font-semibold text-charcoal/70">
-                  Categories
-                </p>
-
-                <m.ul
-                  variants={listVariants}
-                  initial="hidden"
-                  animate={mobileOpen ? "show" : "hidden"}
-                  className="grid grid-cols-2 gap-1"
-                >
+                <p className="px-3 pb-2 pt-6 text-sm font-semibold text-charcoal/70">Categories</p>
+                <m.ul variants={listVariants} initial="hidden" animate="show" className="grid grid-cols-2 gap-1">
                   {categories.map((c) => (
                     <m.li key={c.id} variants={itemVariants}>
                       <SheetClose asChild>
-                        <Link
-                          href={`/categories/${c.slug}`}
-                          className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm hover:bg-mist"
-                        >
-                          <span aria-hidden="true">{c.emoji}</span>
-                          {c.name}
+                        <Link href={`/categories/${c.slug}`} className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm hover:bg-mist">
+                          <span aria-hidden="true">{c.emoji}</span> {c.name}
                         </Link>
                       </SheetClose>
                     </m.li>
@@ -196,69 +120,74 @@ export default function Navbar() {
               </nav>
             </SheetContent>
           </Sheet>
-
           <Logo />
         </div>
 
-        {/* Desktop Navigation */}
-        <m.nav aria-label="Main" variants={listVariants} initial="hidden" animate="show" className="hidden items-center gap-1 lg:flex">
+        {/* Desktop nav */}
+        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {links.slice(0, 2).map((l) => (
-            <m.div key={l.href} variants={itemVariants}>
-              <Link href={l.href} aria-current={isActive(l.href) ? "page" : undefined} className={linkClass(l.href)}>{l.label}</Link>
-            </m.div>
+            <Link key={l.href} href={l.href} className={linkClass(l.href)}>{l.label}</Link>
           ))}
-
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <button type="button" className={`group inline-flex items-center gap-1 ${linkClass("/categories")}`}>
-                Categories
-                <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180" aria-hidden="true" />
+                Categories <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180" aria-hidden="true" />
               </button>
             </DropdownMenuTrigger>
-
-            <DropdownMenuContent
-              align="start"
-              className="grid w-80 grid-cols-2 gap-1"
-            >
+            <DropdownMenuContent align="start" className="grid w-80 grid-cols-2 gap-1">
               {categories.map((c) => (
                 <DropdownMenuItem key={c.id} asChild>
-                  <Link href={`/categories/${c.slug}`}>
-                    <span aria-hidden="true">{c.emoji}</span> {c.name}
-                  </Link>
+                  <Link href={`/categories/${c.slug}`}><span aria-hidden="true">{c.emoji}</span> {c.name}</Link>
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-
           {links.slice(2).map((l) => (
-            <m.div key={l.href} variants={itemVariants}>
-              <Link href={l.href} aria-current={isActive(l.href) ? "page" : undefined} className={linkClass(l.href)}>{l.label}</Link>
-            </m.div>
+            <Link key={l.href} href={l.href} className={linkClass(l.href)}>{l.label}</Link>
           ))}
-        </m.nav>
+        </nav>
+
+        {/* Actions */}
         <div className="flex items-center gap-0.5 sm:gap-2">
           <Tooltip>
             <TooltipTrigger asChild>
-              <button
-                type="button"
-                ref={searchBtnRef}
-                onClick={() => setSearchOpen(true)}
-                aria-label="Search"
-                className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-mist sm:h-10 sm:w-10"
-              >
+              <button type="button" ref={searchBtnRef} onClick={() => setSearchOpen(true)} aria-label="Search" className="grid h-9 w-9 place-items-center rounded-full transition-colors hover:bg-mist sm:h-10 sm:w-10">
                 <Search className="h-5 w-5" />
               </button>
             </TooltipTrigger>
             <TooltipContent>Search</TooltipContent>
           </Tooltip>
-          <IconLink href="/wishlist" label="Wishlist" count={wishCount}>
-            <Heart className="h-5 w-5" />
-          </IconLink>
-          <IconLink href="/cart" label="Cart" count={cartCount}>
-            <ShoppingBag className="h-5 w-5" />
-          </IconLink>
+          <IconLink href="/wishlist" label="Wishlist" count={wishCount}><Heart className="h-5 w-5" /></IconLink>
+          <IconLink href="/cart" label="Cart" count={cartCount}><ShoppingBag className="h-5 w-5" /></IconLink>
+
+          <div className="ml-0.5 sm:ml-1">
+            {isLoggedIn ? (
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <button type="button" aria-label="Account menu" className="flex h-10 items-center gap-2 rounded-full bg-charcoal px-3 text-sm font-semibold text-cream transition-colors hover:bg-charcoal-soft">
+                    <User className="h-4 w-4" />
+                    <span className="hidden max-w-24 truncate sm:inline">{user?.name?.split(" ")[0] || "Account"}</span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-52">
+                  <DropdownMenuLabel className="truncate">{user?.email}</DropdownMenuLabel>
+                  <DropdownMenuItem asChild><Link href="/account"><UserCircle className="h-4 w-4" aria-hidden="true" /> My Account</Link></DropdownMenuItem>
+                  <DropdownMenuItem asChild><Link href="/account/orders"><Package className="h-4 w-4" aria-hidden="true" /> My Orders</Link></DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem destructive onSelect={() => { logout(); router.push("/"); }}>
+                    <LogOut className="h-4 w-4" aria-hidden="true" /> Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link href="/login" aria-label="Login" className="btn btn-dark !px-3 !py-2 sm:!px-5">
+                <User className="h-4 w-4" aria-hidden="true" /> <span className="hidden sm:inline">Login</span>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
+
       <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} returnFocusRef={searchBtnRef} />
     </header>
   );
