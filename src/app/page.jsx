@@ -12,8 +12,7 @@ export default function Home() {
   return (
    
 <> 
-<SearchDialog/>
-<Navbar/>
+
 
 </>
   );
