@@ -1,4 +1,5 @@
 
+import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import Logo from "@/components/common/Logo";
 import { restaurant, delivery } from "@/data/restaurant";
@@ -8,6 +9,15 @@ export default function Footer() {
     { href: restaurant.socialLinks.facebook, label: "Facebook", Icon: FaFacebookF },
     { href: restaurant.socialLinks.instagram, label: "Instagram", Icon: FaInstagram },
     { href: restaurant.socialLinks.youtube, label: "YouTube", Icon: FaYoutube },
+  ];
+
+  const exploreLinks = [
+    ["/menu", "Menu"],
+    ["/offers", "Offers"],
+    ["/about", "About us"],
+    ["/contact", "Contact"],
+    ["/cart", "Cart"],
+    ["/account", "My account"],
   ];
 
   return (
@@ -34,6 +44,22 @@ export default function Footer() {
               </a>
             ))}
           </div>
+        </div>
+
+        <div>
+          <h2 className="font-sans text-sm font-semibold text-white">
+            Explore
+          </h2>
+
+          <ul className="mt-4 space-y-2 text-sm">
+            {exploreLinks.map(([href, label]) => (
+              <li key={href}>
+                <Link href={href} className="hover:text-white">
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>
