@@ -3,8 +3,11 @@ import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import Logo from "@/components/common/Logo";
 import { restaurant, delivery } from "@/data/restaurant";
+import { getRealCategories } from "@/services/productService";
 
 export default function Footer() {
+  const categories = getRealCategories().slice(0, 6);
+
   const social = [
     { href: restaurant.socialLinks.facebook, label: "Facebook", Icon: FaFacebookF },
     { href: restaurant.socialLinks.instagram, label: "Instagram", Icon: FaInstagram },
@@ -56,6 +59,25 @@ export default function Footer() {
               <li key={href}>
                 <Link href={href} className="hover:text-white">
                   {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="font-sans text-sm font-semibold text-white">
+            Categories
+          </h2>
+
+          <ul className="mt-4 space-y-2 text-sm">
+            {categories.map((c) => (
+              <li key={c.id}>
+                <Link
+                  href={`/categories/${c.slug}`}
+                  className="hover:text-white"
+                >
+                  {c.name}
                 </Link>
               </li>
             ))}
