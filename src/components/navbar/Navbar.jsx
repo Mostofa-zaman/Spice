@@ -22,7 +22,7 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-// Count badge that gives a quick "pop" each time the number changes
+// Count badge 
 function CountBadge({ count }) {
   return (
     <AnimatePresence initial={false}>
