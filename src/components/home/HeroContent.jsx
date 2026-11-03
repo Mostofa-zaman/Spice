@@ -1,5 +1,6 @@
 import { delivery } from "@/data/restaurant";
 import { PressLink } from "@/components/motion/Press";
+import { Clock, Truck } from "lucide-react";
 
 export default function HeroContent() {
   return (
@@ -20,6 +21,19 @@ export default function HeroContent() {
     View menu
   </PressLink>
 </div>
+<ul className="js-reveal mt-10 flex flex-wrap gap-x-10 gap-y-4 text-sm">
+  <li className="flex items-center gap-3">
+    <Clock className="h-5 w-5 text-ember" aria-hidden="true" />
+    <span className="font-semibold">{delivery.estimate} delivery</span>
+  </li>
+
+  <li className="flex items-center gap-3">
+    <Truck className="h-5 w-5 text-ember" aria-hidden="true" />
+    <span className="font-semibold">
+      Free delivery over {formatPrice(delivery.freeDeliveryOver)}
+    </span>
+  </li>
+</ul>
     </div>
   );
 }
