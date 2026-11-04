@@ -63,7 +63,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 py-5 text-center text-xs text-cream/60">
-        © {new Date().getFullYear()} {restaurant.name}. Demo website — orders are not real.
+       © 2026 {restaurant.name}. Demo website — orders are not real.
       </div>
     </footer>
   );
