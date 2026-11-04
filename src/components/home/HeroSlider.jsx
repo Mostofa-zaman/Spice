@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { formatPrice } from "@/utils/format";
+import HeroSliderAnimate from "../animations/HeroSliderAnimate";
 
 const sliderImages = [
   {
@@ -58,7 +59,7 @@ const chips = [
   },
 ];
 
-export default function HeroVisual() {
+export default function HeroSlider() {
   const rootRef = useRef(null);
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -85,7 +86,7 @@ export default function HeroVisual() {
   return (
     <div ref={rootRef} className="relative mx-auto w-full max-w-xl">
       {/* GSAP Animation */}
-      {/* <HeroSliderAnimate rootRef={rootRef} /> */}
+      <HeroSliderAnimate rootRef={rootRef} />
 
       {/* Warm Halo */}
       <div
