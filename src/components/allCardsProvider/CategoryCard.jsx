@@ -1,10 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import HoverLift from "@/components/motion/HoverLift";
 
 export default function CategoryCard({ category, count }) {
   return (
-  
+    <HoverLift className="h-full">
     <Link
       href={`/menu?category=${category.slug}`}
       className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-card transition-shadow hover:shadow-lift"
@@ -29,6 +32,6 @@ export default function CategoryCard({ category, count }) {
         <p className="mt-3 text-sm font-semibold text-ember">{count} {count === 1 ? "item" : "items"}</p>
       </div>
     </Link>
-  
+    </HoverLift>
   );
 }
