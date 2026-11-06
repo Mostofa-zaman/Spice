@@ -39,13 +39,41 @@ export default function PromoBanner({
           </p>
 
           {/* Price */}
-      
+          <p className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="text-4xl font-bold">
+              {formatPrice(price)}
+            </span>
 
-         
+            {oldPrice && (
+              <span className="text-lg text-cream/60 line-through">
+                {formatPrice(oldPrice)}
+              </span>
+            )}
+
+            {saving > 0 && (
+              <span className="rounded-full bg-ember px-3 py-1 text-xs font-bold text-white">
+                Save {formatPrice(saving)}
+              </span>
+            )}
+          </p>
+
+          {/* Buttons */}
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link href={`/menu/${slug}`} className="btn btn-primary !px-7 !py-3">
+              Order the combo
+            </Link>
+
+            <Link
+              href="/offers"
+              className="btn border border-cream/30 text-cream hover:bg-white/10"
+            >
+              See all offers
+            </Link>
+          </div>
         </div>
 
         {/* Food Tiles */}
-    
+      
 
       </div>
     </section>
