@@ -73,7 +73,13 @@ export default function PromoBanner({
         </div>
 
         {/* Food Tiles */}
-      
+        <div className="grid grid-cols-2 gap-4" aria-hidden="true">
+          {tiles.map((t) => (
+            <div key={t.emoji} className="grid aspect-square place-items-center rounded-3xl bg-white/10 text-5xl sm:text-6xl">
+              {t.emoji}
+            </div>
+          ))}
+        </div>
 
       </div>
     </section>
